@@ -1,0 +1,13 @@
+{
+  "name": "almi-mis-xv",
+  "private": true,
+  "workspaces": [
+    "frontend"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace frontend",
+    "dev:watch": "npm run dev --workspace frontend",
+    "build": "npm run build --workspace frontend",
+    "lint": "npm run lint --workspaces"
+  }
+}

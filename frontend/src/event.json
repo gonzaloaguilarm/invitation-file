@@ -1,0 +1,58 @@
+{
+  "name": "Almi Mis XV",
+  "location": {
+    "name": "Janos La Plata",
+    "address": "C. 60 1836, B1904 Los Hornos, Provincia de Buenos Aires",
+    "latitude": "-34.944732",
+    "longitude": " -57.967518",
+    "googleMapsUrl": "https://maps.app.goo.gl/zWukQCFFVJDeTbAB7"
+  },
+  "playlist": {
+    "spotifyUrl": "https://open.spotify.com/playlist/3jPKPPQqpsbcIqABXZfhgz?si=mYElLZqLQp-SDcqTp7pQ5w&utm_=&nd=1&dlsi=bd079a3d468341be",
+    "embedUrl": "https://open.spotify.com/embed/playlist/37i9dQZEVXbMDoHDwVN2tF"
+  },
+  "colors": {
+    "primary": "#f7d77a",
+    "secondary": "#fbf5e8",
+    "background": "#111111",
+    "text": "#f8f6ef"
+  },
+  "typography": {
+    "heading": "Playfair Display, Georgia, serif"
+  },
+  "dressCode": {
+    "title": "Dress code",
+    "value": "Elegante",
+    "description": "Se reserva la gama de colores verdes y blancos para la homenajeada"
+  },
+  "gifts": [
+    "Tu presencia es el mejor regalo",
+    "Alias opcional: NEGRITA4EVER"
+  ],
+  "mercadoPago": {
+    "alias": "NEGRITA4EVER",
+    "deepLink": "https://www.mercadopago.com.ar/money-out/transfer/calculator?alias=NEGRITA4EVER"
+  },
+  "quote": "Te invito a celebrar juntos la mejor noche de mi vida.",
+  "social": {
+    "instagram": "https://instagram.com/"
+  },
+  "map": {
+    "enabled": true,
+    "zoom": 15
+  },
+  "rsvp": {
+    "organizerEmail": "gonzaloaguilarm@gmail.com"
+  },
+  "countdown": {
+    "enabled": true,
+    "targetDate": "2026-08-28T21:00:00-03:00",
+    "finalMessage": "Hoy es el gran día!"
+  },
+  "calendar": {
+    "title": "Almi Mis XV",
+    "description": "Cumpleaños de Alma",
+    "startDate": "2026-08-28T21:00:00-03:00",
+    "endDate": "2026-08-29T05:00:00-03:00"
+  }
+}
