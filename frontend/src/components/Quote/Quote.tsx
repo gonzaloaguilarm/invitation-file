@@ -1,5 +1,8 @@
-export const Quote = ({ text }: { text: string }) => (
-  <section className="section quote">
-    <blockquote>{text}</blockquote>
-  </section>
+import message from '../../assets/events/almi/message.png';
+
+
+export const Quote = () => (
+  <section className="featuredImageSection">
+      <img src={message} alt="message" />
+      </section>
 );

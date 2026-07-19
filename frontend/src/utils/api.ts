@@ -40,3 +40,7 @@ export const createGoogleCalendarUrl = (payload: CalendarPayload) => {
 
   return `https://calendar.google.com/calendar/render?${params.toString()}`;
 };
+
+export const createSpotifyUrl = () => {
+  return "https://open.spotify.com/playlist/3jPKPPQqpsbcIqABXZfhgz?si=mYElLZqLQp-SDcqTp7pQ5w&utm_=&nd=1&dlsi=bd079a3d468341be"
+};

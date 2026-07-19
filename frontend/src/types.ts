@@ -2,6 +2,7 @@ export type EventConfig = {
   name: string;
   location: {
     name: string;
+    place: string;
     address: string;
     latitude: string;
     longitude: string;
@@ -9,7 +10,6 @@ export type EventConfig = {
   };
   playlist: {
     spotifyUrl: string;
-    embedUrl: string;
   };
   colors: {
     primary: string;

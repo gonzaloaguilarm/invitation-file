@@ -3,6 +3,7 @@ import { Send } from 'lucide-react';
 import type { EventConfig, RsvpSubmission } from '../../types';
 import { submitRsvp } from '../../utils/api';
 import { CalendarButton } from '../CalendarButton/CalendarButton';
+import { SpotifyPlayer } from '../SpotifyPlayer/SpotifyPlayer';
 
 export const RSVP = ({ event }: { event: EventConfig }) => {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'sent' | 'error'>('idle');
@@ -83,7 +84,7 @@ export const RSVP = ({ event }: { event: EventConfig }) => {
         </select>
         <textarea
           name="message"
-          placeholder="Aclaraciones"
+          placeholder="Canciones que no pueden faltar..."
           maxLength={500}
           value={formValues.message}
           onChange={updateField('message')}
@@ -93,8 +94,10 @@ export const RSVP = ({ event }: { event: EventConfig }) => {
         </button>
       </form>
       <div className="actionRow">
+        <SpotifyPlayer />
         <CalendarButton event={event} />
       </div>
+      
       {status === 'sent' && <p className="formState">Confirmación enviada.</p>}
       {status === 'error' && <p className="formState">No se pudo enviar. Intenta nuevamente.</p>}
     </section>

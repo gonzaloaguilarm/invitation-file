@@ -9,7 +9,6 @@ import { GiftSection } from '../../components/GiftSection/GiftSection';
 import { Location } from '../../components/Location/Location';
 import { Quote } from '../../components/Quote/Quote';
 import { RSVP } from '../../components/RSVP/RSVP';
-import { SpotifyPlayer } from '../../components/SpotifyPlayer/SpotifyPlayer';
 import { ThemeProvider } from '../../components/ThemeProvider/ThemeProvider';
 import { useEventConfig } from '../../context/EventContext';
 import imagen2 from '../../assets/events/almi/imagen2.jpg';
@@ -29,12 +28,11 @@ export const EventPage = () => {
         <main className="eventPage">
           <FeaturedMedia />
           <Countdown countdown={event.countdown} />
-          <Quote text={event.quote} />
+          <Quote/>
           <Gallery images={galleryImages} />
           <Location event={event} />
           <DressCode title={event.dressCode.title} value={event.dressCode.value} description={event.dressCode.description} />
           <GiftSection gifts={event.gifts} mercadoPago={event.mercadoPago} />
-          <SpotifyPlayer playlist={event.playlist} />
           <RSVP event={event} />
           <Footer event={event} />
           <FloatingMusic audioUrl={backgroundMusic} />
