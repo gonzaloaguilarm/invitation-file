@@ -44,3 +44,25 @@ export const createGoogleCalendarUrl = (payload: CalendarPayload) => {
 export const createSpotifyUrl = () => {
   return "https://open.spotify.com/playlist/3jPKPPQqpsbcIqABXZfhgz?si=mYElLZqLQp-SDcqTp7pQ5w&utm_=&nd=1&dlsi=bd079a3d468341be"
 };
+
+const escapeIcsText = (text: string) => text.replace(/[\\,;]/g, (char) => `\\${char}`).replace(/\n/g, '\\n');
+
+export const createIcsDataUrl = (payload: CalendarPayload) => {
+  const ics = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Invitacion//ES',
+    'BEGIN:VEVENT',
+    `UID:${Date.now()}@invitacion`,
+    `DTSTAMP:${formatGoogleCalendarDate(new Date().toISOString())}`,
+    `DTSTART:${formatGoogleCalendarDate(payload.startDate)}`,
+    `DTEND:${formatGoogleCalendarDate(payload.endDate)}`,
+    `SUMMARY:${escapeIcsText(payload.title)}`,
+    `DESCRIPTION:${escapeIcsText(payload.description)}`,
+    `LOCATION:${escapeIcsText(payload.location)}`,
+    'END:VEVENT',
+    'END:VCALENDAR'
+  ].join('\r\n');
+
+  return `data:text/calendar;charset=utf-8,${encodeURIComponent(ics)}`;
+};
