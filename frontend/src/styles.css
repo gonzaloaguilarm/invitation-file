@@ -31,7 +31,7 @@ textarea {
 
 .eventPage {
   min-height: 100vh;
-  background-color: black
+  background-color: black;
 }
 
 .section {
@@ -50,7 +50,7 @@ textarea {
 
   background-size: cover;
   background-position: center;
-  opacity: .5;
+  opacity: 0.5;
 }
 
 .section h2 {
@@ -86,8 +86,7 @@ textarea {
   width: min(100%, 920px);
   max-height: min(88vh, 820px);
   object-fit: contain;
-  border: 1px solid rgba(255, 255, 255, .16);
-  background: rgba(255, 255, 255, .06);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .featuredVideoSection video {
@@ -101,10 +100,10 @@ textarea {
 }
 
 .countItem {
-  border: 1px solid rgba(255, 255, 255, .15);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   padding: 24px;
   text-align: center;
-  background: rgba(255, 255, 255, .04);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .countItem strong {
@@ -138,8 +137,8 @@ textarea {
   aspect-ratio: 4 / 5;
   padding: 0;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, .16);
-  background: rgba(255, 255, 255, .06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.06);
   cursor: zoom-in;
 }
 
@@ -150,7 +149,7 @@ textarea {
 }
 
 .carouselImage img {
-  animation: carouselFade .7s ease both;
+  animation: carouselFade 0.7s ease both;
 }
 
 .carouselImage span {
@@ -161,7 +160,7 @@ textarea {
   align-items: center;
   gap: 8px;
   padding: 8px 10px;
-  background: rgba(17, 17, 17, .76);
+  background: rgba(17, 17, 17, 0.76);
   color: var(--color-secondary);
   font-size: 14px;
 }
@@ -171,8 +170,8 @@ textarea {
   z-index: 2;
   width: 44px;
   height: 44px;
-  border: 1px solid rgba(255, 255, 255, .2);
-  background: rgba(17, 17, 17, .72);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(17, 17, 17, 0.72);
   color: var(--color-text);
   display: grid;
   place-items: center;
@@ -199,9 +198,9 @@ textarea {
   width: 58px;
   height: 58px;
   padding: 0;
-  border: 1px solid rgba(255, 255, 255, .18);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   background: transparent;
-  opacity: .58;
+  opacity: 0.58;
   cursor: pointer;
 }
 
@@ -221,7 +220,7 @@ textarea {
   inset: 0;
   z-index: 20;
   border: 0;
-  background: rgba(0, 0, 0, .86);
+  background: rgba(0, 0, 0, 0.86);
   cursor: zoom-out;
 }
 
@@ -233,7 +232,7 @@ textarea {
 
 @keyframes carouselFade {
   from {
-    opacity: .25;
+    opacity: 0.25;
     transform: scale(1.012);
   }
 
@@ -254,7 +253,7 @@ textarea {
   width: 100%;
   min-height: 360px;
   border: 0;
-  filter: grayscale(.25);
+  filter: grayscale(0.25);
 }
 
 .button {
@@ -272,12 +271,12 @@ textarea {
 }
 
 .button:disabled {
-  opacity: .45;
+  opacity: 0.45;
   cursor: not-allowed;
 }
 
 .compact {
-  border-top: 1px solid rgba(255, 255, 255, .14);
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
 }
 
 .mercadoPagoButton {
@@ -307,8 +306,8 @@ textarea {
 .rsvp select,
 .rsvp textarea {
   width: 100%;
-  border: 1px solid rgba(255, 255, 255, .18);
-  background: rgba(255, 255, 255, .06);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
   color: var(--color-text);
   padding: 14px;
 }
@@ -329,31 +328,7 @@ textarea {
   color: var(--color-primary);
 }
 
-.floatingMusic {
-  position: fixed;
-  right: 18px;
-  bottom: 18px;
-  z-index: 15;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px;
-  border: 1px solid rgba(255, 255, 255, .16);
-  backdrop-filter: blur(12px);
-
-
-}
-
-.floatingMusicEmbed {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.floatingMusicAudio {
+.hiddenAudio {
   position: fixed;
   left: -9999px;
   width: 0;
@@ -362,17 +337,36 @@ textarea {
   pointer-events: none;
 }
 
-.floatingMusic button {
-  width: 36px;
-  height: 36px;
-  border: 0;
-  display: grid;
-  place-items: center;
-  cursor: pointer;
+.introScreen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 24px;
+  text-align: center;
+  background-color: var(--color-background);
 }
 
-.floatingMusic input {
-  width: 86px;
+.introScreen__title {
+  font-family: var(--font-heading);
+  font-size: clamp(36px, 8vw, 72px);
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.introScreen__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 320px;
+}
+
+.buttonOutline {
+  background: transparent;
+  color: var(--color-text);
 }
 
 .footer {
@@ -405,6 +399,7 @@ textarea {
 
   .countdown {
     grid-template-columns: repeat(2, 1fr);
+    padding-top: 0px;
   }
 
   .carouselImage {
