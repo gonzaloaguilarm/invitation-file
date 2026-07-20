@@ -27,11 +27,10 @@
   },
   "gifts": [
     "Tu presencia es el mejor regalo",
-    "Alias opcional: NEGRITA4EVER"
+    "Alias opcional ;)"
   ],
   "mercadoPago": {
-    "alias": "NEGRITA4EVER",
-    "deepLink": "https://www.mercadopago.com.ar/money-out/transfer/calculator?alias=NEGRITA4EVER"
+    "alias": "NEGRITA4EVER"
   },
   "quote": "Te invito a celebrar juntos la mejor noche de mi vida.",
   "social": {

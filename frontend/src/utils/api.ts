@@ -47,8 +47,8 @@ export const createSpotifyUrl = () => {
 
 const escapeIcsText = (text: string) => text.replace(/[\\,;]/g, (char) => `\\${char}`).replace(/\n/g, '\\n');
 
-export const createIcsDataUrl = (payload: CalendarPayload) => {
-  const ics = [
+const buildIcsString = (payload: CalendarPayload) =>
+  [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
     'PRODID:-//Invitacion//ES',
@@ -64,5 +64,9 @@ export const createIcsDataUrl = (payload: CalendarPayload) => {
     'END:VCALENDAR'
   ].join('\r\n');
 
-  return `data:text/calendar;charset=utf-8,${encodeURIComponent(ics)}`;
+// Safari blocks top-level navigation to data: URIs, so a Blob object URL is
+// used instead — it's what Safari recognizes and offers to add to Calendar.
+export const createIcsBlobUrl = (payload: CalendarPayload) => {
+  const blob = new Blob([buildIcsString(payload)], { type: 'text/calendar;charset=utf-8' });
+  return URL.createObjectURL(blob);
 };

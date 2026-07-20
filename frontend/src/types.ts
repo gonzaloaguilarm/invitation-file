@@ -28,7 +28,6 @@ export type EventConfig = {
   gifts: string[];
   mercadoPago?: {
     alias: string;
-    deepLink: string;
   };
   quote: string;
   social: Record<string, string>;

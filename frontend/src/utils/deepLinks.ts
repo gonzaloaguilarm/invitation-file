@@ -37,16 +37,3 @@ export const createSpotifyAppUrl = (spotifyUrl: string) => {
   const playlistId = spotifyUrl.match(/playlist\/([a-zA-Z0-9]+)/)?.[1];
   return playlistId ? `spotify:playlist:${playlistId}` : spotifyUrl;
 };
-
-/**
- * Builds a Chrome `intent://` URI that forces a specific Android app package
- * to handle the link, bypassing Android's (often unverified/disabled) App
- * Links matching. Chrome/Chromium-based browsers fall back to
- * `S.browser_fallback_url` natively if the package isn't installed.
- */
-export const createAndroidIntentUrl = (url: string, packageName: string) => {
-  const parsed = new URL(url);
-  const scheme = parsed.protocol.replace(':', '');
-  const rest = `${parsed.host}${parsed.pathname}${parsed.search}`;
-  return `intent://${rest}#Intent;scheme=${scheme};package=${packageName};S.browser_fallback_url=${encodeURIComponent(url)};end`;
-};

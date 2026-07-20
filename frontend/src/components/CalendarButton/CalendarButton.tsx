@@ -1,5 +1,5 @@
 import { CalendarPlus } from 'lucide-react';
-import { createGoogleCalendarUrl, createIcsDataUrl } from '../../utils/api';
+import { createGoogleCalendarUrl, createIcsBlobUrl } from '../../utils/api';
 import type { EventConfig } from '../../types';
 import { isIOS, isAndroid } from '../../utils/deepLinks';
 
@@ -7,10 +7,10 @@ export const CalendarButton = ({ event }: { event: EventConfig }) => {
   const add = () => {
     const payload = { ...event.calendar, location: event.location.address };
 
-    // iOS has no Google Calendar app-link scheme; a data: ICS URI is the
-    // reliable way to hand off to the native Calendar app instead of Safari.
+    // iOS has no Google Calendar app-link scheme; opening an ICS Blob URL in
+    // a new tab is what reliably triggers Safari's native "Add to Calendar".
     if (isIOS()) {
-      window.location.href = createIcsDataUrl(payload);
+      window.open(createIcsBlobUrl(payload), '_blank');
       return;
     }
 

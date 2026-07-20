@@ -1,15 +1,32 @@
-import { Wallet } from 'lucide-react';
+import { useState } from 'react';
+import { Check, Copy } from 'lucide-react';
 import type { EventConfig } from '../../types';
-import { createAndroidIntentUrl, isAndroid } from '../../utils/deepLinks';
 
-const MERCADO_PAGO_ANDROID_PACKAGE = 'com.mercadopago.wallet';
+const copyToClipboard = async (text: string) => {
+  if (navigator.clipboard) {
+    await navigator.clipboard.writeText(text);
+    return;
+  }
+
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  textarea.style.position = 'fixed';
+  textarea.style.opacity = '0';
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand('copy');
+  document.body.removeChild(textarea);
+};
 
 export const GiftSection = ({ gifts, mercadoPago }: { gifts: string[]; mercadoPago?: EventConfig['mercadoPago'] }) => {
-  const handleMercadoPagoClick = (clickEvent: React.MouseEvent<HTMLAnchorElement>) => {
-    if (!mercadoPago || !isAndroid()) return;
+  const [copied, setCopied] = useState(false);
 
-    clickEvent.preventDefault();
-    window.location.href = createAndroidIntentUrl(mercadoPago.deepLink, MERCADO_PAGO_ANDROID_PACKAGE);
+  const handleCopyAlias = async () => {
+    if (!mercadoPago) return;
+
+    await copyToClipboard(mercadoPago.alias);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -17,9 +34,10 @@ export const GiftSection = ({ gifts, mercadoPago }: { gifts: string[]; mercadoPa
       <h2>Regalos</h2>
       {gifts.map((gift) => <p key={gift}>{gift}</p>)}
       {mercadoPago && (
-        <a className="button mercadoPagoButton" href={mercadoPago.deepLink} onClick={handleMercadoPagoClick}>
-          <Wallet size={18} /> Transferir por Mercado Pago
-        </a>
+        <button className="button mercadoPagoButton" type="button" onClick={handleCopyAlias}>
+          {copied ? <Check size={18} /> : <Copy size={18} />}
+          {copied ? 'Alias copiado' : mercadoPago.alias}
+        </button>
       )}
     </section>
   );
