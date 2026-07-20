@@ -48,10 +48,11 @@ export type EventConfig = {
   };
 };
 
+export type MenuOption = 'adulto carne' | 'adulto veggie' | 'adolescente' | 'celiaco';
+
 export type RsvpSubmission = {
   guestName: string;
   email?: string;
-  attendance: 'yes' | 'no';
-  dietaryRestrictions?: 'adulto carne' | 'adulto veggie' | 'adolescente' | 'celiaco';
+  menus: MenuOption[];
   message?: string;
 };

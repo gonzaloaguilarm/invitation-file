@@ -16,8 +16,10 @@ export const submitRsvp = async (payload: RsvpSubmission, organizerEmail: string
   formData.append('_subject', `Confirmacion para ${eventName}`);
   formData.append('Evento', eventName);
   formData.append('Nombre', payload.guestName);
-  formData.append('Asistencia', payload.attendance === 'yes' ? 'Asiste' : 'No asiste');
-  formData.append('Menu', payload.dietaryRestrictions ?? '');
+  formData.append('Integrantes', String(payload.menus.length));
+  payload.menus.forEach((menu, index) => {
+    formData.append(`Menu ${index + 1}`, menu);
+  });
   formData.append('Mensaje', payload.message ?? '');
 
   const response = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(organizerEmail)}`, {

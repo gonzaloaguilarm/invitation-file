@@ -25,17 +25,11 @@
     "value": "Elegante",
     "description": "Se reserva la gama de colores verdes y blancos para la cumpleañera"
   },
-  "gifts": [
-    "Tu presencia es el mejor regalo",
-    "Alias opcional ;)"
-  ],
+  "gifts": ["Tu presencia es el mejor regalo", "Alias opcional ;)"],
   "mercadoPago": {
-    "alias": "NEGRITA4EVER"
+    "alias": "ALMI.MISS.XV"
   },
   "quote": "Te invito a celebrar juntos la mejor noche de mi vida.",
-  "social": {
-    "instagram": "https://instagram.com/"
-  },
   "map": {
     "enabled": true,
     "zoom": 15

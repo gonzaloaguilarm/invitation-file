@@ -1,33 +1,37 @@
 import { useState } from 'react';
-import { Send } from 'lucide-react';
-import type { EventConfig, RsvpSubmission } from '../../types';
+import { Check, Send } from 'lucide-react';
+import type { EventConfig, MenuOption, RsvpSubmission } from '../../types';
 import { submitRsvp } from '../../utils/api';
 import { CalendarButton } from '../CalendarButton/CalendarButton';
 import { SpotifyPlayer } from '../SpotifyPlayer/SpotifyPlayer';
 
+const MAX_MEMBERS = 5;
+
+const MENU_DESCRIPTIONS: Partial<Record<MenuOption, string>> = {
+  'adulto carne': 'Bondiola braseada con papas a la crema',
+  'adulto veggie': 'Mozzarellas rebozada con ensalada',
+  adolescente: 'Hamburguesa de carne con papas fritas'
+};
+
 export const RSVP = ({ event }: { event: EventConfig }) => {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'sent' | 'error'>('idle');
   const [hasSubmitted, setHasSubmitted] = useState(false);
-  const [formValues, setFormValues] = useState({
-    guestName: '',
-    attendance: 'yes',
-    dietaryRestrictions: '',
-    message: ''
-  });
+  const [guestName, setGuestName] = useState('');
+  const [message, setMessage] = useState('');
+  const [menus, setMenus] = useState<string[]>(['']);
 
   const isFormComplete =
-    formValues.guestName.trim().length > 0 &&
-    formValues.attendance.trim().length > 0 &&
-    formValues.dietaryRestrictions.trim().length > 0;
+    guestName.trim().length > 0 && menus.length > 0 && menus.every((menu) => menu.trim().length > 0);
   const submitDisabled = !isFormComplete || hasSubmitted;
 
-  const updateField = (field: keyof typeof formValues) => (
-    inputEvent: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
-  ) => {
-    setFormValues((currentValues) => ({
-      ...currentValues,
-      [field]: inputEvent.target.value
-    }));
+  const updateMemberCount = (memberCountEvent: React.ChangeEvent<HTMLSelectElement>) => {
+    const count = Number(memberCountEvent.target.value);
+    setMenus((currentMenus) => Array.from({ length: count }, (_, index) => currentMenus[index] ?? ''));
+  };
+
+  const updateMenu = (index: number) => (menuEvent: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = menuEvent.target.value;
+    setMenus((currentMenus) => currentMenus.map((menu, menuIndex) => (menuIndex === index ? value : menu)));
   };
 
   const onSubmit = async (submitEvent: React.FormEvent<HTMLFormElement>) => {
@@ -37,13 +41,10 @@ export const RSVP = ({ event }: { event: EventConfig }) => {
     setHasSubmitted(true);
     setStatus('submitting');
 
-    const formData = new FormData(submitEvent.currentTarget);
     const payload: RsvpSubmission = {
-      guestName: String(formData.get('guestName') ?? ''),
-      email: String(formData.get('email') ?? ''),
-      attendance: String(formData.get('attendance') ?? 'yes') as RsvpSubmission['attendance'],
-      dietaryRestrictions: String(formData.get('dietaryRestrictions') ?? '') as RsvpSubmission['dietaryRestrictions'],
-      message: String(formData.get('message') ?? '')
+      guestName,
+      menus: menus as MenuOption[],
+      message
     };
 
     try {
@@ -51,6 +52,7 @@ export const RSVP = ({ event }: { event: EventConfig }) => {
       setStatus('sent');
     } catch {
       setStatus('error');
+      setHasSubmitted(false);
     }
   };
 
@@ -63,42 +65,49 @@ export const RSVP = ({ event }: { event: EventConfig }) => {
           placeholder="Nombre y apellido"
           required
           maxLength={120}
-          value={formValues.guestName}
-          onChange={updateField('guestName')}
+          value={guestName}
+          onChange={(inputEvent) => setGuestName(inputEvent.target.value)}
         />
-        <select name="attendance" value={formValues.attendance} onChange={updateField('attendance')} required>
-          <option value="yes">Asisto</option>
-          <option value="no">No asisto</option>
+        <select name="memberCount" value={menus.length} onChange={updateMemberCount} required>
+          {Array.from({ length: MAX_MEMBERS }, (_, index) => index + 1).map((count) => (
+            <option key={count} value={count}>
+              {count} {count === 1 ? 'invitado' : 'invitados'}
+            </option>
+          ))}
         </select>
-        <select
-          name="dietaryRestrictions"
-          value={formValues.dietaryRestrictions}
-          onChange={updateField('dietaryRestrictions')}
-          required
-        >
-          <option value="" disabled>Menú</option>
-          <option value="adulto carne">Menú adulto carne</option>
-          <option value="adulto veggie">Menú adulto veggie</option>
-          <option value="adolescente">Menú adolescente</option>
-          <option value="celiaco">Menú celíaco</option>
-        </select>
+        {menus.map((menu, index) => (
+          <div className="menuField" key={index}>
+            <select name={`menu-${index}`} value={menu} onChange={updateMenu(index)} required>
+              <option value="" disabled>
+                Menú invitado {index + 1}
+              </option>
+              <option value="adulto carne">Menú adulto carne</option>
+              <option value="adulto veggie">Menú adulto veggie</option>
+              <option value="adolescente">Menú adolescente</option>
+              <option value="celiaco">Menú celíaco</option>
+            </select>
+            {MENU_DESCRIPTIONS[menu as MenuOption] && (
+              <p className="menuDescription">{MENU_DESCRIPTIONS[menu as MenuOption]}</p>
+            )}
+          </div>
+        ))}
         <textarea
           name="message"
           placeholder="Canciones que no pueden faltar..."
           maxLength={500}
-          value={formValues.message}
-          onChange={updateField('message')}
+          value={message}
+          onChange={(textareaEvent) => setMessage(textareaEvent.target.value)}
         />
         <button className="button" type="submit" disabled={submitDisabled}>
-          <Send size={18} /> {status === 'submitting' ? 'Enviando' : 'Enviar Reserva'}
+          {status === 'sent' ? <Check size={18} /> : <Send size={18} />}{' '}
+          {status === 'submitting' ? 'Enviando' : status === 'sent' ? 'Reserva enviada' : 'Enviar Reserva'}
         </button>
       </form>
       <div className="actionRow">
         <SpotifyPlayer />
         <CalendarButton event={event} />
       </div>
-      
-      {status === 'sent' && <p className="formState">Confirmación enviada.</p>}
+
       {status === 'error' && <p className="formState">No se pudo enviar. Intenta nuevamente.</p>}
     </section>
   );
