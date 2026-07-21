@@ -27,7 +27,8 @@
   },
   "gifts": ["Tu presencia es el mejor regalo", "Alias opcional ;)"],
   "mercadoPago": {
-    "alias": "ALMI.MISS.XV"
+    "alias": "ALMI.MISS.XV",
+    "aliasUsd": "ALMI.MISS.XV.USD"
   },
   "quote": "Te invito a celebrar juntos la mejor noche de mi vida.",
   "map": {

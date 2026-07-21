@@ -28,6 +28,7 @@ export type EventConfig = {
   gifts: string[];
   mercadoPago?: {
     alias: string;
+    aliasUsd?: string;
   };
   quote: string;
   map: { enabled: boolean; zoom: number };
