@@ -285,11 +285,9 @@ textarea {
   margin-top: 12px;
 }
 
-.spotify {
-  width: 100%;
-  min-height: 352px;
-  border: 0;
-  margin-bottom: 16px;
+.calendarNote {
+  font-size: 0.85em;
+  opacity: 0.75;
 }
 
 .rsvp form {
@@ -297,9 +295,7 @@ textarea {
   gap: 12px;
 }
 
-.rsvp .button,
-.actionRow,
-.actionRow .button {
+.rsvp .button {
   width: 100%;
 }
 
@@ -336,13 +332,6 @@ textarea {
   padding: 0 4px;
   font-size: 0.78em;
   opacity: 0.6;
-}
-
-.actionRow {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-top: 18px;
 }
 
 .formState {

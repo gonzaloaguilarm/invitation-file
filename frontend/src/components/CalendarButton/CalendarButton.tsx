@@ -3,7 +3,7 @@ import { createGoogleCalendarUrl, createIcsBlobUrl } from '../../utils/api';
 import type { EventConfig } from '../../types';
 import { isIOS, isAndroid } from '../../utils/deepLinks';
 
-export const CalendarButton = ({ event }: { event: EventConfig }) => {
+export const CalendarButton = ({ event, className }: { event: EventConfig; className?: string }) => {
   const add = () => {
     const payload = { ...event.calendar, location: event.location.address };
 
@@ -26,7 +26,7 @@ export const CalendarButton = ({ event }: { event: EventConfig }) => {
   };
 
   return (
-    <button className="button" type="button" onClick={add}>
+    <button className={`button${className ? ` ${className}` : ''}`} type="button" onClick={add}>
       <CalendarPlus size={18} /> Agregar al calendario
     </button>
   );

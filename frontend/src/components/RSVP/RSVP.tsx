@@ -2,13 +2,12 @@ import { useEffect, useState } from "react";
 import { Check, Send } from "lucide-react";
 import type { EventConfig, MenuOption, RsvpSubmission } from "../../types";
 import { submitRsvp } from "../../utils/api";
-import { CalendarButton } from "../CalendarButton/CalendarButton";
-import { SpotifyPlayer } from "../SpotifyPlayer/SpotifyPlayer";
 
 const MENU_DESCRIPTIONS: Partial<Record<MenuOption, string>> = {
   "adulto carne": "Bondiola braseada con papas a la crema",
   "adulto veggie": "Mozzarellas rebozadas con ensalada",
   adolescente: "Hamburguesa de carne con papas fritas",
+  celiaco: "Milanesa sin TACC con fritas",
 };
 
 const RSVP_STORAGE_KEY = "rsvp-submitted";
@@ -59,7 +58,7 @@ export const RSVP = ({ event }: { event: EventConfig }) => {
 
   return (
     <section id="rsvp" className="section rsvp">
-      <h2>Confirmar asistencia</h2>
+      <h2>Confirmar reserva</h2>
       <form onSubmit={onSubmit}>
         <input
           name="guestName"
@@ -91,6 +90,8 @@ export const RSVP = ({ event }: { event: EventConfig }) => {
           )}
           <p className="menuNote">
             *Menores de 5 años inclusive tienen menú infantil
+            <br />
+            Mozzarelitas rebozadas con fritas
           </p>
         </div>
         <textarea
@@ -105,20 +106,18 @@ export const RSVP = ({ event }: { event: EventConfig }) => {
           {status === "submitting"
             ? "Enviando"
             : status === "sent"
-            ? "Reserva enviada"
-            : "Enviar Reserva"}
+              ? "Reserva enviada"
+              : "Enviar Reserva"}
         </button>
       </form>
-      <div className="actionRow">
-        <SpotifyPlayer />
-        <CalendarButton event={event} />
-      </div>
 
       {status === "error" && (
         <p className="formState">No se pudo enviar. Intenta nuevamente.</p>
       )}
       {alreadySubmittedBefore && (
-        <p className="formState">Ya enviaste tu confirmación desde este dispositivo.</p>
+        <p className="formState">
+          Ya enviaste tu confirmación desde este dispositivo.
+        </p>
       )}
     </section>
   );

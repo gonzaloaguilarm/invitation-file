@@ -32,8 +32,3 @@ export const createGoogleMapsAppUrl = (latitude: string, longitude: string, labe
   }
   return `geo:${lat},${lng}?q=${lat},${lng}(${encodeURIComponent(label)})`;
 };
-
-export const createSpotifyAppUrl = (spotifyUrl: string) => {
-  const playlistId = spotifyUrl.match(/playlist\/([a-zA-Z0-9]+)/)?.[1];
-  return playlistId ? `spotify:playlist:${playlistId}` : spotifyUrl;
-};

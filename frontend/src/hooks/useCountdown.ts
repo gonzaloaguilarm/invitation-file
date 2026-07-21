@@ -15,12 +15,13 @@ export const useCountdown = (targetDate: string) => {
   const hours = Math.floor((totalSeconds % 86400) / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
   const seconds = totalSeconds % 60;
+  const isEventDay = new Date(now).toDateString() === new Date(target).toDateString();
 
   return {
     days,
     hours,
     minutes,
     seconds,
-    completed: remaining === 0
+    completed: remaining === 0 || isEventDay
   };
 };

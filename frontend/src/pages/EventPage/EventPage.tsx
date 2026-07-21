@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { AnimationProvider } from '../../components/AnimationProvider/AnimationProvider';
+import { CalendarSection } from '../../components/CalendarSection/CalendarSection';
 import { Countdown } from '../../components/Countdown/Countdown';
 import { DressCode } from '../../components/DressCode/DressCode';
 import { FeaturedMedia } from '../../components/FeaturedMedia/FeaturedMedia';
@@ -46,6 +47,7 @@ export const EventPage = () => {
             <Location event={event} />
             <DressCode title={event.dressCode.title} value={event.dressCode.value} description={event.dressCode.description} />
             <GiftSection gifts={event.gifts} mercadoPago={event.mercadoPago} />
+            <CalendarSection event={event} />
             <RSVP event={event} />
             <Footer event={event} />
           </main>
