@@ -30,7 +30,6 @@ export type EventConfig = {
     alias: string;
   };
   quote: string;
-  social: Record<string, string>;
   map: { enabled: boolean; zoom: number };
   rsvp: {
     organizerEmail: string;
