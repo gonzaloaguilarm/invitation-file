@@ -52,6 +52,6 @@ export type MenuOption = 'adulto carne' | 'adulto veggie' | 'adolescente' | 'cel
 export type RsvpSubmission = {
   guestName: string;
   email?: string;
-  menus: MenuOption[];
+  menu: MenuOption;
   message?: string;
 };

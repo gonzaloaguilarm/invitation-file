@@ -331,6 +331,13 @@ textarea {
   opacity: 0.7;
 }
 
+.menuNote {
+  margin: 0;
+  padding: 0 4px;
+  font-size: 0.78em;
+  opacity: 0.6;
+}
+
 .actionRow {
   display: flex;
   gap: 12px;
