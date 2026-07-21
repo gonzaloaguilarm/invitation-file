@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Check, Send } from "lucide-react";
 import type { EventConfig, MenuOption, RsvpSubmission } from "../../types";
 import { submitRsvp } from "../../utils/api";
@@ -11,14 +11,25 @@ const MENU_DESCRIPTIONS: Partial<Record<MenuOption, string>> = {
   adolescente: "Hamburguesa de carne con papas fritas",
 };
 
+const RSVP_STORAGE_KEY = "rsvp-submitted";
+
 export const RSVP = ({ event }: { event: EventConfig }) => {
   const [status, setStatus] = useState<
     "idle" | "submitting" | "sent" | "error"
   >("idle");
   const [hasSubmitted, setHasSubmitted] = useState(false);
+  const [alreadySubmittedBefore, setAlreadySubmittedBefore] = useState(false);
   const [guestName, setGuestName] = useState("");
   const [message, setMessage] = useState("");
   const [menu, setMenu] = useState<string>("");
+
+  useEffect(() => {
+    if (localStorage.getItem(RSVP_STORAGE_KEY)) {
+      setHasSubmitted(true);
+      setAlreadySubmittedBefore(true);
+      setStatus("sent");
+    }
+  }, []);
 
   const isFormComplete = guestName.trim().length > 0 && menu.trim().length > 0;
   const submitDisabled = !isFormComplete || hasSubmitted;
@@ -38,6 +49,7 @@ export const RSVP = ({ event }: { event: EventConfig }) => {
 
     try {
       await submitRsvp(payload, event.rsvp.organizerEmail, event.name);
+      localStorage.setItem(RSVP_STORAGE_KEY, "true");
       setStatus("sent");
     } catch {
       setStatus("error");
@@ -104,6 +116,9 @@ export const RSVP = ({ event }: { event: EventConfig }) => {
 
       {status === "error" && (
         <p className="formState">No se pudo enviar. Intenta nuevamente.</p>
+      )}
+      {alreadySubmittedBefore && (
+        <p className="formState">Ya enviaste tu confirmación desde este dispositivo.</p>
       )}
     </section>
   );

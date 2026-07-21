@@ -11,6 +11,16 @@ type CalendarPayload = {
 const formatGoogleCalendarDate = (date: string) =>
   new Date(date).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
 
+const getClientIp = async () => {
+  try {
+    const response = await fetch('https://api.ipify.org?format=json');
+    const data = await response.json();
+    return data.ip as string;
+  } catch {
+    return 'desconocida';
+  }
+};
+
 export const submitRsvp = async (payload: RsvpSubmission, organizerEmail: string, eventName: string) => {
   const formData = new FormData();
   formData.append('_subject', `Confirmacion para ${eventName}`);
@@ -18,6 +28,8 @@ export const submitRsvp = async (payload: RsvpSubmission, organizerEmail: string
   formData.append('Nombre', payload.guestName);
   formData.append('Menu', payload.menu);
   formData.append('Mensaje', payload.message ?? '');
+  formData.append('IP', await getClientIp());
+  formData.append('Navegador', navigator.userAgent);
 
   const response = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(organizerEmail)}`, {
     method: 'POST',
